@@ -1,8 +1,9 @@
 package equipement.weapon;
-public class Sword extends Weapon{
+
+public class Sword extends Weapon {
     public Sword() {
-        this.setAttackPower(5);
-        this.setName("Épée");
-        this.setClassType("Warrior");
+        setAttackPower(5);
+        setName("Épée");
+        setClassType("Warrior");
     }
 }

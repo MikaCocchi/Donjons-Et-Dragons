@@ -1,8 +1,9 @@
 package equipement.weapon;
-public class FireBall extends Weapon{
+
+public class FireBall extends Weapon {
     public FireBall() {
-        this.setAttackPower(7);
-        this.setName("FireBall");
-        this.setClassType("Wizard");
+        setAttackPower(7);
+        setName("FireBall");
+        setClassType("Wizard");
     }
 }

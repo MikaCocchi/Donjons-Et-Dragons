@@ -1,5 +1,8 @@
 package equipement.weapon;
-public abstract class Weapon {
+
+import interfaces.BoardEvent;
+
+public abstract class Weapon implements BoardEvent {
     private int attackPower;
 
     public int getAttackPower() {

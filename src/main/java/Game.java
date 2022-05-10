@@ -1,28 +1,31 @@
 import character.Character;
 import character.Warrior;
 import character.Wizard;
-import equipement.potion.BigHealingPotion;
-import equipement.potion.HealingPotion;
 
 import java.util.Scanner;
 
 public class Game {
     ///////////MAIN///////////
     public static void main(String[] args) {
+
         Scanner keyboard = new Scanner(System.in);
         boolean characterFinished = false;
-        Character character = null;
+        Character player = null;
         while (!characterFinished) {
             String characterName = chooseAName();
-            character = chooseAClass(characterName);
+            player = chooseAClass(characterName);
             characterFinished = true;
         }
         System.out.println("to start the game, enter 'start'");
         if (keyboard.nextLine().equals("start")) {
-            startPlaying();
+            startPlaying(player);
         }
     }
 
+    /**
+     * function asks the user to choose a name, it returns the input
+     * @return characterName
+     */
     public static String chooseAName() {
         Scanner keyboard = new Scanner(System.in);
         boolean nameFinished = false;
@@ -45,7 +48,7 @@ public class Game {
      * @return Character
      */
     public static Character chooseAClass(String characterName) {
-        Character character = null;
+        Character player = null;
         Scanner keyboard = new Scanner(System.in);
         boolean classFinished = false;
         while (!classFinished) {
@@ -54,8 +57,8 @@ public class Game {
             System.out.println(characterClass + " is that correct ? (yes or no)");
             if (keyboard.nextLine().equals("yes")) {
                 try {
-                    character = createCharacter(characterClass, characterName);
-                    character.getAllStats(characterClass);
+                    player = createCharacter(characterClass, characterName);
+                    System.out.println(player);
                     classFinished = true;
 
                 } catch (Exception error) {
@@ -64,9 +67,15 @@ public class Game {
 
             }
         }
-        return character;
+        return player;
     }
 
+    /**
+     * this function instantiate an object type Warrior or Wizard
+     * @param characterClass String contains the class of the character
+     * @param characterName String contains the name of the character
+     * @return an object type Warrior or Wizard
+     */
     public static Character createCharacter(String characterClass, String characterName) {
         Character character = null;
         if (characterClass.equals("Warrior")) {
@@ -79,24 +88,30 @@ public class Game {
         return character;
     }
 
-    public static void startPlaying() {
+    /**
+     * function starts the process to play the game
+     */
+    public static void startPlaying(Character player) {
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
+        System.out.println("mon board : "+ board);
         System.out.println("To move forward enter 'c' if you want to stop playing enter 'exit'");
-        while (board.getPosition() < 64) {
+        while (board.getPosition() < board.getBoard().length) {
             String keyboardInput = keyboard.nextLine();
             if (keyboardInput.equals("c")) {
-                board.moveForward(throwTheDice());
+                board.moveForward(throwTheDice(), player);
             } else if (keyboardInput.equals("exit")) {
                 System.out.println("Thanks for playing !");
                 System.exit(0);
             }
         }
-
     }
 
+    /**
+     * this function returns a random integer between 1 and 6
+     * @return int
+     */
     public static int throwTheDice() {
-        return (int) (Math.random() * 5) + 1;
+        return (int) (Math.random() * 6) + 1;
     }
-
 }

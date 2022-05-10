@@ -1,9 +1,11 @@
 package equipement.potion;
-public abstract class HealingPotion {
+
+import interfaces.BoardEvent;
+
+public abstract class HealingPotion implements BoardEvent {
 
     private String name;
     private int healingAmount;
-
     @Override
     public String toString() {
         return this.name + " " + this.healingAmount;

@@ -1,8 +1,10 @@
 package equipement.potion;
 
+import interfaces.BoardEvent;
+
 public class StandardHealingPotion extends HealingPotion {
     public StandardHealingPotion() {
-        this.setName("StandardHealingPotion");
-        this.setHealingAmount(2);
+        setName("StandardHealingPotion");
+        setHealingAmount(2);
     }
 }
