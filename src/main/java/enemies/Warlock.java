@@ -1,10 +1,34 @@
 package enemies;
 
+/**
+ *An evil dark mage
+ */
 public class Warlock extends Enemy {
     public Warlock() {
         setHeal(9);
         setStrength(2);
-        setImage("imageDeWizard.png");
-        setName("Goblin");
+        setImage("                    ____ \n" +
+                "                  .'* *.'\n" +
+                "               __/_*_*(_\n" +
+                "              / _______ \\\n" +
+                "             _\\_)/___\\(_/_ \n" +
+                "            / _((\\- -/))_ \\\n" +
+                "            \\ \\())(-)(()/ /\n" +
+                "             ' \\(((()))/ '\n" +
+                "            / ' \\)).))/ ' \\\n" +
+                "           / _ \\ - | - /_  \\\n" +
+                "          (   ( .;''';. .'  )\n" +
+                "          _\\\"__ /    )\\ __\"/_\n" +
+                "            \\/  \\   ' /  \\/\n" +
+                "             .'  '...' ' )\n" +
+                "              / /  |  \\ \\\n" +
+                "             / .   .   . \\\n" +
+                "            /   .     .   \\\n" +
+                "           /   /   |   \\   \\\n" +
+                "         .'   /    b    '.  '.\n" +
+                "     _.-'    /     Bb     '-. '-._ \n" +
+                " _.-'       |      BBb       '-.  '-. \n" +
+                "(___________\\____.dBBBb.________)____)");
+        setName("Warlock");
     }
 }

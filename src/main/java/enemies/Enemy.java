@@ -2,7 +2,10 @@ package enemies;
 
 import interfaces.BoardEvent;
 
-public class Enemy implements BoardEvent {
+/**
+ * A super class which contains all the stats an enemy needs
+ */
+public abstract class Enemy implements BoardEvent {
     private int heal;
     private int strength;
     private String image;

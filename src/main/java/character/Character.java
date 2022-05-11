@@ -1,5 +1,8 @@
 package character;
 
+/**
+ * a super class which contains all the stats a player's character need
+ */
 public abstract class Character {
     private int maxHeal;
     private int heal;
@@ -77,27 +80,28 @@ public abstract class Character {
     }
 
     /**
-     *this function changes the actual weapon with a new one
-     * @param weapon a weapon with the class "warrior"
+     * this function changes the actual weapon with a new one
      *
+     * @param weapon a weapon with the class "warrior"
      */
     public void changeWeapon(Object weapon) {
         this.setRightHand(weapon);
     }
 
     /**
-     *this function changes the actual shield with a new one
-     * @param shield
+     * this function changes the actual shield with a new one
      *
+     * @param shield
      */
     public void changeShield(Object shield) {
         this.setLeftHand(shield);
     }
+
     /**
      * this function display all the character stats in the terminal
      */
     @Override
     public String toString() {
-        return "Welcome new " + getClass().getSimpleName() + " here are your statistics : \nname : "+ getName()+"\nhealth : " + getHeal()+"\nstrength : " + getStrength();
+        return getImage() + "\n" + getClass().getSimpleName() + " here are your statistics : \n-name : " + getName() + "\n-health : " + getHeal() + "\n-strength : " + getStrength();
     }
 }

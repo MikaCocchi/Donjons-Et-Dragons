@@ -2,6 +2,9 @@ package equipement.weapon;
 
 import interfaces.BoardEvent;
 
+/**
+ * A super class which contains all the stats a weapon needs
+ */
 public abstract class Weapon implements BoardEvent {
     private int attackPower;
 
@@ -32,4 +35,13 @@ public abstract class Weapon implements BoardEvent {
     private String name;
 
     private String classType;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

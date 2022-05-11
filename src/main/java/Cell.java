@@ -1,5 +1,8 @@
 import interfaces.BoardEvent;
 
+/**
+ * This class represent a cell of the board
+ */
 public class Cell {
     private BoardEvent randomEvent;
 

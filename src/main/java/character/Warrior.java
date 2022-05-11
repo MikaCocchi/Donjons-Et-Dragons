@@ -1,6 +1,6 @@
 package character;
 /**
- * Warrior is a character with a lot of health and quite decent damages
+ * Warrior is a character with a lot of health and with quite decent damages
  */
 public class Warrior extends Character {
 
@@ -11,7 +11,26 @@ public class Warrior extends Character {
         setHeal(5);
         setMaxStrength(10);
         setStrength(5);
-        setImage("imageDeWarrior.png");
+        setImage("  ,   A           {}\n" +
+                " / \\, | ,        .--.\n" +
+                "|    =|= >      /.--.\\\n" +
+                " \\ /` | `       |====|\n" +
+                "  `   |         |`::`|  \n" +
+                "      |     .-;`\\..../`;_.-^-._\n" +
+                "     /\\\\/  /  |...::..|`   :   `|\n" +
+                "     |:'\\ |   /'''::''|   .:.   |\n" +
+                "      \\ /\\;-,/\\   ::  |..:::::..|\n" +
+                "      |\\ <` >  >._::_.| ':::::' |\n" +
+                "      | `\"\"`  /   ^^  |   ':'   |\n" +
+                "      |       |       \\    :    /\n" +
+                "      |       |        \\   :   / \n" +
+                "      |       |___/\\___|`-.:.-`\n" +
+                "      |        \\_ || _/    `\n" +
+                "      |        <_ >< _>\n" +
+                "      |        |  ||  |\n" +
+                "      |        |  ||  |\n" +
+                "      |       _\\.:||:./_\n" +
+                "      |      /____/\\____\\");
         setName(name);
     }
 

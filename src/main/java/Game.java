@@ -4,6 +4,9 @@ import character.Wizard;
 
 import java.util.Scanner;
 
+/**
+ * this class controls whole application
+ */
 public class Game {
     ///////////MAIN///////////
     public static void main(String[] args) {
@@ -24,6 +27,7 @@ public class Game {
 
     /**
      * function asks the user to choose a name, it returns the input
+     *
      * @return characterName
      */
     public static String chooseAName() {
@@ -52,7 +56,7 @@ public class Game {
         Scanner keyboard = new Scanner(System.in);
         boolean classFinished = false;
         while (!classFinished) {
-            System.out.print("Welcome " + characterName + " please choose your class: ");
+            System.out.print("Welcome " + characterName + " the classes available are:\n- wizard\n- warrior \nplease choose your class: ");
             String characterClass = keyboard.nextLine();
             System.out.println(characterClass + " is that correct ? (yes or no)");
             if (keyboard.nextLine().equals("yes")) {
@@ -72,16 +76,17 @@ public class Game {
 
     /**
      * this function instantiate an object type Warrior or Wizard
+     *
      * @param characterClass String contains the class of the character
-     * @param characterName String contains the name of the character
+     * @param characterName  String contains the name of the character
      * @return an object type Warrior or Wizard
      */
     public static Character createCharacter(String characterClass, String characterName) {
         Character character = null;
-        if (characterClass.equals("Warrior")) {
+        if (characterClass.equals("Warrior") || characterClass.equals("warrior")) {
             character = new Warrior(characterName);
 
-        } else if (characterClass.equals("Wizard")) {
+        } else if (characterClass.equals("Wizard") || characterClass.equals("wizard")) {
             character = new Wizard(characterName);
 
         }
@@ -94,8 +99,7 @@ public class Game {
     public static void startPlaying(Character player) {
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
-        System.out.println("mon board : "+ board);
-        System.out.println("To move forward enter 'c' if you want to stop playing enter 'exit'");
+        System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
         while (board.getPosition() < board.getBoard().length) {
             String keyboardInput = keyboard.nextLine();
             if (keyboardInput.equals("c")) {
@@ -103,12 +107,16 @@ public class Game {
             } else if (keyboardInput.equals("exit")) {
                 System.out.println("Thanks for playing !");
                 System.exit(0);
+            } else if (keyboardInput.equals("st")) {
+                System.out.println(player);
             }
+            System.out.println("\n-------------------------------------------------------------------------------------------------\n");
         }
     }
 
     /**
      * this function returns a random integer between 1 and 6
+     *
      * @return int
      */
     public static int throwTheDice() {
