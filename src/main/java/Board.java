@@ -1,7 +1,8 @@
-import enemies.Dragon;
-import enemies.Enemy;
-import enemies.Goblin;
-import enemies.Warlock;
+import character.enemies.Dragon;
+import character.enemies.Enemy;
+import character.enemies.Goblin;
+import character.enemies.Warlock;
+import character.heros.Hero;
 import equipement.potion.BigHealingPotion;
 import equipement.potion.HealingPotion;
 import equipement.potion.StandardHealingPotion;
@@ -94,7 +95,7 @@ public class Board {
      *
      * @param diceThrow An int which represent how far the character will move on the board
      */
-    public void moveForward(int diceThrow, Character player) {
+    public void moveForward(int diceThrow, Hero player) {
         int positionWithDiceThrow = this.getPosition() + diceThrow;
         try {
             setPosition(positionWithDiceThrow);
@@ -116,7 +117,7 @@ public class Board {
         }
     }
 
-    public void playTheRound(Cell cell, Character player) {
+    public void playTheRound(Cell cell, Hero player) {
         if (cell.getRandomEvent() instanceof Enemy) {
             //DISPLAY THE ENEMY YOU ARE FIGHTING
             System.out.println(((Enemy) cell.getRandomEvent()).getImage() + "\n You are fighting against a " + ((Enemy) cell.getRandomEvent()).getName());

@@ -1,4 +1,4 @@
-package enemies;
+package character.enemies;
 
 /**
  * Dragon is the worst enemy you can face

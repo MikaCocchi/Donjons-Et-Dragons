@@ -1,8 +1,9 @@
-package character;
+package character.heros;
+
 /**
  * Warrior is a character with a lot of health and with quite decent damages
  */
-public class Warrior extends Character {
+public class Warrior extends Hero {
 
 
     ////////CONSTRUCTOR
@@ -33,7 +34,4 @@ public class Warrior extends Character {
                 "      |      /____/\\____\\");
         setName(name);
     }
-
-
-
 }

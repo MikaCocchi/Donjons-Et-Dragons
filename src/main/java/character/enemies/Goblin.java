@@ -1,4 +1,4 @@
-package enemies;
+package character.enemies;
 
 /**
  * Goblin is a weak and filthy creature

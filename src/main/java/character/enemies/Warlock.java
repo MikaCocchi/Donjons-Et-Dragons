@@ -1,4 +1,4 @@
-package enemies;
+package character.enemies;
 
 /**
  *An evil dark mage

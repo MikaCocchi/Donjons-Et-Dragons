@@ -1,9 +1,9 @@
-package character;
+package character.heros;
 
 /**
  * Wizard is a character which has a small amount of health but has a lot of damages
  */
-public class Wizard extends Character {
+public class Wizard extends Hero {
     public Wizard(String name) {
         setMaxHeal(6);
         setHeal(3);
@@ -16,7 +16,7 @@ public class Wizard extends Character {
                 " / || \\    ,-'\\\"/,'`.   \n" +
                 "   ||     ,'   `,,. `.  \n" +
                 "   ,|____,' , ,;' \\| |  \n" +
-                "  (3|\\    _/|/'   _| |  \n" +
+                "   ||\\    _/|/'   _| |  \n" +
                 "   ||/,-''  | >-'' _,\\\\ \n" +
                 "   ||'      ==\\ ,-'  ,' \n" +
                 "   ||       |  V \\ ,|   \n" +

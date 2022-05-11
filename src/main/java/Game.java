@@ -1,6 +1,6 @@
-import character.Character;
-import character.Warrior;
-import character.Wizard;
+import character.heros.Hero;
+import character.heros.Warrior;
+import character.heros.Wizard;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class Game {
 
         Scanner keyboard = new Scanner(System.in);
         boolean characterFinished = false;
-        Character player = null;
+        Hero player = null;
         while (!characterFinished) {
             String characterName = chooseAName();
             player = chooseAClass(characterName);
@@ -51,8 +51,8 @@ public class Game {
      * @param characterName a string which contains the name of the character
      * @return Character
      */
-    public static Character chooseAClass(String characterName) {
-        Character player = null;
+    public static Hero chooseAClass(String characterName) {
+        Hero player = null;
         Scanner keyboard = new Scanner(System.in);
         boolean classFinished = false;
         while (!classFinished) {
@@ -81,22 +81,22 @@ public class Game {
      * @param characterName  String contains the name of the character
      * @return an object type Warrior or Wizard
      */
-    public static Character createCharacter(String characterClass, String characterName) {
-        Character character = null;
+    public static Hero createCharacter(String characterClass, String characterName) {
+        Hero hero = null;
         if (characterClass.equals("Warrior") || characterClass.equals("warrior")) {
-            character = new Warrior(characterName);
+            hero = new Warrior(characterName);
 
         } else if (characterClass.equals("Wizard") || characterClass.equals("wizard")) {
-            character = new Wizard(characterName);
+            hero = new Wizard(characterName);
 
         }
-        return character;
+        return hero;
     }
 
     /**
      * function starts the process to play the game
      */
-    public static void startPlaying(Character player) {
+    public static void startPlaying(Hero player) {
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
         System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
