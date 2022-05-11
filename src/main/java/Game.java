@@ -102,13 +102,16 @@ public class Game {
         System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
         while (board.getPosition() < board.getBoard().length) {
             String keyboardInput = keyboard.nextLine();
-            if (keyboardInput.equals("c")) {
-                board.moveForward(throwTheDice(), player);
-            } else if (keyboardInput.equals("exit")) {
-                System.out.println("Thanks for playing !");
-                System.exit(0);
-            } else if (keyboardInput.equals("st")) {
-                System.out.println(player);
+            switch (keyboardInput) {
+                case "c":
+                    board.moveForward(throwTheDice(), player);
+                    break;
+                case "exit":
+                    System.out.println("Thanks for playing !");
+                    System.exit(0);
+                case "st":
+                    System.out.println(player);
+                    break;
             }
             System.out.println("\n-------------------------------------------------------------------------------------------------\n");
         }

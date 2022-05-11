@@ -1,5 +1,6 @@
 package equipement.weapon;
 
+import character.heros.Hero;
 import interfaces.BoardEvent;
 
 /**
@@ -43,5 +44,20 @@ public abstract class Weapon implements BoardEvent {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    @Override
+    public void interactWithCell(Hero player) {
+        //DISPLAY THE WEAPON YOU HAVE FOUND
+        System.out.println(getImage() + "\nyou just found a " + getName());
+        if (getClassType().equals(player.getClass().getSimpleName())) {
+            player.setStrength(Math.min(player.getStrength() + getAttackPower(), player.getMaxStrength()));
+            if (player.getStrength() == player.getMaxStrength()) {
+                System.out.println("your strength is maxed out !");
+            } else {
+                System.out.println("You just found a " + getName() + " ,here is your strength : " + player.getStrength());
+            }
+        } else {
+            System.out.println("You can't use this weapon");
+        }
     }
 }

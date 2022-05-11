@@ -1,5 +1,7 @@
 package equipement.potion;
 
+import character.heros.Hero;
+import equipement.weapon.Weapon;
 import interfaces.BoardEvent;
 
 /**
@@ -39,5 +41,17 @@ public abstract class HealingPotion implements BoardEvent {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public void interactWithCell(Hero player) {
+        //DISPLAY THE POTION YOU HAVE FOUND
+        System.out.println(getImage() + "\nYou found a " + getName());
+        player.setHeal(Math.min(player.getHeal() + getHealingAmount(), player.getMaxHeal()));
+        if (player.getHeal() == player.getMaxHeal()) {
+            System.out.println("your health is maxed out !");
+        } else {
+            System.out.println("You just drank a potion, here is your heal : " + player.getHeal());
+        }
     }
 }
