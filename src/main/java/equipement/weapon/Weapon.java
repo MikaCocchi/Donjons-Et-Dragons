@@ -1,5 +1,6 @@
 package equipement.weapon;
 
+import Cell.*;
 import character.heros.Hero;
 import interfaces.BoardEvent;
 
@@ -46,7 +47,7 @@ public abstract class Weapon implements BoardEvent {
         this.image = image;
     }
     @Override
-    public void interactWithCell(Hero player) {
+    public boolean interactWithCell(Hero player, Cell cell) {
         //DISPLAY THE WEAPON YOU HAVE FOUND
         System.out.println(getImage() + "\nyou just found a " + getName());
         if (getClassType().equals(player.getClass().getSimpleName())) {
@@ -59,5 +60,7 @@ public abstract class Weapon implements BoardEvent {
         } else {
             System.out.println("You can't use this weapon");
         }
+        cell.setRandomEvent(new EmptyCell());
+        return true;
     }
 }

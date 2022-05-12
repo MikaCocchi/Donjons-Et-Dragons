@@ -1,7 +1,7 @@
 package equipement.potion;
 
+import Cell.*;
 import character.heros.Hero;
-import equipement.weapon.Weapon;
 import interfaces.BoardEvent;
 
 /**
@@ -44,7 +44,7 @@ public abstract class HealingPotion implements BoardEvent {
     }
 
     @Override
-    public void interactWithCell(Hero player) {
+    public boolean interactWithCell(Hero player, Cell cell) {
         //DISPLAY THE POTION YOU HAVE FOUND
         System.out.println(getImage() + "\nYou found a " + getName());
         player.setHeal(Math.min(player.getHeal() + getHealingAmount(), player.getMaxHeal()));
@@ -53,5 +53,7 @@ public abstract class HealingPotion implements BoardEvent {
         } else {
             System.out.println("You just drank a potion, here is your heal : " + player.getHeal());
         }
+        cell.setRandomEvent(new EmptyCell());
+        return true;
     }
 }

@@ -1,3 +1,5 @@
+package Cell;
+
 import interfaces.BoardEvent;
 
 /**
@@ -15,7 +17,7 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "Cell{" +
+        return "Cell.Cell{" +
                 "randomEvent=" + randomEvent +
                 '}';
     }

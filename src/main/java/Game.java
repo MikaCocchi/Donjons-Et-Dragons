@@ -104,7 +104,7 @@ public class Game {
             String keyboardInput = keyboard.nextLine();
             switch (keyboardInput) {
                 case "c":
-                    board.moveForward(throwTheDice(), player);
+                    board.moveForwardAndPlay(throwTheDice(), player);
                     break;
                 case "exit":
                     System.out.println("Thanks for playing !");
