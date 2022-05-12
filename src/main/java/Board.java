@@ -1,10 +1,8 @@
 import character.enemies.Dragon;
-import character.enemies.Enemy;
 import character.enemies.Goblin;
 import character.enemies.Warlock;
 import character.heros.Hero;
 import equipement.potion.BigHealingPotion;
-import equipement.potion.HealingPotion;
 import equipement.potion.StandardHealingPotion;
 import equipement.weapon.*;
 
@@ -15,6 +13,7 @@ import java.util.Arrays;
  */
 public class Board {
     private Cell[] board = new Cell[64];
+
     private int position = 0;
 
     ///////////////GETTER and SETTER /////////////////
@@ -36,57 +35,41 @@ public class Board {
 
     //////////////END GETTER and SETTER/////////////
     public Board() {
-        for (int i = 0; i < board.length; i++) {
-            Cell cell = new Cell();
-            int random = (int) (Math.random() * 3);
-            if (random == 0) {
-                cell.setRandomEvent(randomEnemy());
-            } else if (random == 1) {
-                cell.setRandomEvent(randomWeapon());
-            } else if (random == 2) {
-                cell.setRandomEvent(randomPotion());
+        ////////// Create an array with a certain amount of each BoardEvents
+        for (int i = 0; i<64; i++){
+            Cell test = new Cell();
+            if (i <4) {
+                test.setRandomEvent(new Dragon());
+            } else if (i<14) {
+                test.setRandomEvent(new Warlock());
+            } else if (i<24) {
+                test.setRandomEvent(new Goblin());
+            } else if (i<29){
+                test.setRandomEvent(new Stick());
+            } else if (i < 33) {
+                test.setRandomEvent(new Sword());
+            } else if (i < 38) {
+                test.setRandomEvent(new LightningBolt());
+            } else if (i < 41) {
+                test.setRandomEvent(new FireBall());
+            } else if (i < 47) {
+                test.setRandomEvent(new StandardHealingPotion());
+            } else if (i < 53) {
+                test.setRandomEvent(new BigHealingPotion());
+            } else {
+                test.setRandomEvent(new Stick());
             }
-            board[i] = cell;
+            board[i] = test;
         }
-    }
+        ////////////SHUFFLE ARRAY
+        int boardLength = board.length;
+        for (int i = 0 ; i < boardLength ; i++) {
+            int random = i + (int)(Math.random() * (boardLength - i));
+            Cell temporary = board[random];
+            board[random] = board[i];
+            board[i] = temporary;
+        }
 
-    public Enemy randomEnemy() {
-        Enemy enemy = null;
-        int random = (int) (Math.random() * 3);
-        if (random == 0) {
-            enemy = new Goblin();
-        } else if (random == 1) {
-            enemy = new Warlock();
-        } else if (random == 2) {
-            enemy = new Dragon();
-        }
-        return enemy;
-    }
-
-    public Weapon randomWeapon() {
-        int random = (int) (Math.random() * 4);
-        Weapon weapon = null;
-        if (random == 0) {
-            weapon = new FireBall();
-        } else if (random == 1) {
-            weapon = new LightningBolt();
-        } else if (random == 2) {
-            weapon = new Sword();
-        } else if (random == 3) {
-            weapon = new stick();
-        }
-        return weapon;
-    }
-
-    public HealingPotion randomPotion() {
-        HealingPotion potion = null;
-        int random = (int) (Math.random() * 2);
-        if (random == 0) {
-            potion = new StandardHealingPotion();
-        } else if (random == 1) {
-            potion = new BigHealingPotion();
-        }
-        return potion;
     }
 
     /**

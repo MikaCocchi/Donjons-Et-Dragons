@@ -3,8 +3,8 @@ package equipement.weapon;
 /**
  * A simple piece of wood
  */
-public class stick extends Weapon {
-    public stick() {
+public class Stick extends Weapon {
+    public Stick() {
         setAttackPower(3);
         setName("stick");
         setClassType("Warrior");
