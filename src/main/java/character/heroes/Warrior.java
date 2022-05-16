@@ -1,4 +1,4 @@
-package character.heros;
+package character.heroes;
 
 /**
  * Warrior is a character with a lot of health and with quite decent damages
@@ -33,5 +33,9 @@ public class Warrior extends Hero {
                 "      |       _\\.:||:./_\n" +
                 "      |      /____/\\____\\");
         setName(name);
+    }
+    public Warrior() {
+        setMaxHeal(10);
+        setMaxStrength(10);
     }
 }

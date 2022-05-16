@@ -2,7 +2,7 @@ package character.enemies;
 
 import Cell.*;
 import character.Character;
-import character.heros.Hero;
+import character.heroes.Hero;
 import interfaces.BoardEvent;
 
 

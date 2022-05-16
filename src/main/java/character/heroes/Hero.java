@@ -1,4 +1,4 @@
-package character.heros;
+package character.heroes;
 
 import character.Character;
 

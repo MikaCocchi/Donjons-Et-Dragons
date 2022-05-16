@@ -1,6 +1,6 @@
-import character.heros.Hero;
-import character.heros.Warrior;
-import character.heros.Wizard;
+import character.heroes.Hero;
+import character.heroes.Warrior;
+import character.heroes.Wizard;
 
 import java.util.Scanner;
 
@@ -8,20 +8,29 @@ import java.util.Scanner;
  * this class controls whole application
  */
 public class Game {
+
+
     ///////////MAIN///////////
     public static void main(String[] args) {
-
+        DataBase db = new DataBase();
         Scanner keyboard = new Scanner(System.in);
-        boolean characterFinished = false;
         Hero player = null;
-        while (!characterFinished) {
-            String characterName = chooseAName();
-            player = chooseAClass(characterName);
-            characterFinished = true;
+        System.out.println("do you want to load a saved character ? (y or n)");
+        if (keyboard.nextLine().equals("y")) {
+            player = db.loadSavedCharacter();
+        } else {
+            boolean characterFinished = false;
+            while (!characterFinished) {
+                String characterName = chooseAName();
+                player = chooseAClass(characterName);
+                characterFinished = true;
+            }
+            db.saveCreatedHero(player);
         }
+
         System.out.println("to start the game, enter 'start'");
         if (keyboard.nextLine().equals("start")) {
-            startPlaying(player);
+            startPlaying(player,db);
         }
     }
 
@@ -96,7 +105,7 @@ public class Game {
     /**
      * function starts the process to play the game
      */
-    public static void startPlaying(Hero player) {
+    public static void startPlaying(Hero player, DataBase db) {
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
         System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
@@ -104,10 +113,11 @@ public class Game {
             String keyboardInput = keyboard.nextLine();
             switch (keyboardInput) {
                 case "c":
-                    board.moveForwardAndPlay(throwTheDice(), player);
+                    board.moveForwardAndPlay(throwTheDice(), player, db);
                     break;
                 case "exit":
                     System.out.println("Thanks for playing !");
+                    db.saveHeroCurrentStats(player);
                     System.exit(0);
                 case "st":
                     System.out.println(player);
@@ -125,4 +135,12 @@ public class Game {
     public static int throwTheDice() {
         return (int) (Math.random() * 6) + 1;
     }
+
+
+
+
+
+
+
+
 }

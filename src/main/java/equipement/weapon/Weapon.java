@@ -1,7 +1,7 @@
 package equipement.weapon;
 
 import Cell.*;
-import character.heros.Hero;
+import character.heroes.Hero;
 import interfaces.BoardEvent;
 
 /**

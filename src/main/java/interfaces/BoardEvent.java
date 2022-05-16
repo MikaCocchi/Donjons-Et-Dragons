@@ -1,7 +1,7 @@
 package interfaces;
 
 
-import character.heros.Hero;
+import character.heroes.Hero;
 import Cell.Cell;
 
 /**

@@ -2,7 +2,7 @@ import Cell.*;
 import character.enemies.Dragon;
 import character.enemies.Goblin;
 import character.enemies.Warlock;
-import character.heros.Hero;
+import character.heroes.Hero;
 import equipement.potion.BigHealingPotion;
 import equipement.potion.StandardHealingPotion;
 import equipement.weapon.*;
@@ -79,7 +79,7 @@ public class Board {
      *
      * @param diceThrow An int which represent how far the character will move on the board
      */
-    public void moveForwardAndPlay(int diceThrow, Hero player) {
+    public void moveForwardAndPlay(int diceThrow, Hero player, DataBase db) {
         int positionWithDiceThrow = getPosition() + diceThrow;
         try {
             setPosition(positionWithDiceThrow);
@@ -110,6 +110,7 @@ public class Board {
 
         } catch (Exception e) {
             this.setPosition(64);
+            db.deleteHero(player.getName());
             System.out.println("You have reached the edge of the board. Well done !" +
                     "\n             ___________\n" +
                     "            '._==_==_=_.'\n" +

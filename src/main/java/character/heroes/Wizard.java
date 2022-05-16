@@ -1,4 +1,4 @@
-package character.heros;
+package character.heroes;
 
 /**
  * Wizard is a character which has a small amount of health but has a lot of damages
@@ -30,5 +30,9 @@ public class Wizard extends Hero {
                 "   ||        ccc/       \n" +
                 "   ||                   ");
         setName(name);
+    }
+    public Wizard() {
+        setMaxHeal(6);
+        setMaxStrength(15);
     }
 }
