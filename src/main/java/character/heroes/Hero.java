@@ -2,6 +2,9 @@ package character.heroes;
 
 import character.Character;
 
+/**
+ * this class extends Character and defines all Heroes the user can choose
+ */
 public abstract class Hero extends Character {
     private int maxHeal;
     private int maxStrength;

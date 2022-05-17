@@ -3,6 +3,9 @@ package Cell;
 import character.heroes.Hero;
 import interfaces.BoardEvent;
 
+/**
+ * This class represent an empty cell of the board
+ */
 public class EmptyCell implements BoardEvent {
     @Override
     public boolean interactWithCell(Hero player,Cell cell) {

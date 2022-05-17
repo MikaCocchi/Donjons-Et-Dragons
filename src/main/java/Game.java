@@ -2,6 +2,7 @@ import character.heroes.Hero;
 import character.heroes.Warrior;
 import character.heroes.Wizard;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,25 +15,40 @@ public class Game {
     public static void main(String[] args) {
         DataBase db = new DataBase();
         Scanner keyboard = new Scanner(System.in);
-        Hero player = null;
+        Hero player;
         System.out.println("do you want to load a saved character ? (y or n)");
         if (keyboard.nextLine().equals("y")) {
             player = db.loadSavedCharacter();
         } else {
-            boolean characterFinished = false;
-            while (!characterFinished) {
-                String characterName = chooseAName();
-                player = chooseAClass(characterName);
-                characterFinished = true;
-            }
+            player = createHero(db);
             db.saveCreatedHero(player);
         }
-
         System.out.println("to start the game, enter 'start'");
         if (keyboard.nextLine().equals("start")) {
-            startPlaying(player,db);
+            startPlaying(player, db);
         }
     }
+
+    public static Hero createHero(DataBase db) {
+        String characterName = null;
+        boolean nameChosen = false;
+        while (!nameChosen) {
+            characterName = chooseAName();
+            List<String> names = db.getAllNames();
+            for (String name : names) {
+                if (characterName.equalsIgnoreCase(name)) {
+                    System.out.println("name already taken please choose another one");
+                    nameChosen = false;
+                    break;
+                } else if (!nameChosen) {
+                    nameChosen = true;
+                }
+            }
+        }
+
+        return chooseAClass(characterName);
+    }
+
 
     /**
      * function asks the user to choose a name, it returns the input
@@ -70,7 +86,7 @@ public class Game {
             System.out.println(characterClass + " is that correct ? (yes or no)");
             if (keyboard.nextLine().equals("yes")) {
                 try {
-                    player = createCharacter(characterClass, characterName);
+                    player = heroInstantiation(characterClass, characterName);
                     System.out.println(player);
                     classFinished = true;
 
@@ -90,7 +106,7 @@ public class Game {
      * @param characterName  String contains the name of the character
      * @return an object type Warrior or Wizard
      */
-    public static Hero createCharacter(String characterClass, String characterName) {
+    public static Hero heroInstantiation(String characterClass, String characterName) {
         Hero hero = null;
         if (characterClass.equals("Warrior") || characterClass.equals("warrior")) {
             hero = new Warrior(characterName);
@@ -135,12 +151,6 @@ public class Game {
     public static int throwTheDice() {
         return (int) (Math.random() * 6) + 1;
     }
-
-
-
-
-
-
 
 
 }
