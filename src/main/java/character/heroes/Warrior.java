@@ -1,5 +1,7 @@
 package character.heroes;
 
+import equipement.defence.EmptyLeftHand;
+
 /**
  * Warrior is a character with a lot of health and with quite decent damages
  */
@@ -33,6 +35,7 @@ public class Warrior extends Hero {
                 "      |       _\\.:||:./_\n" +
                 "      |      /____/\\____\\");
         setName(name);
+        setLeftHand(new EmptyLeftHand());
     }
     public Warrior() {
         setMaxHeal(10);
@@ -57,5 +60,6 @@ public class Warrior extends Hero {
                 "      |        |  ||  |\n" +
                 "      |       _\\.:||:./_\n" +
                 "      |      /____/\\____\\");
+        setLeftHand(new EmptyLeftHand());
     }
 }

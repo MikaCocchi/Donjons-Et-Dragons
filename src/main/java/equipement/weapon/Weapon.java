@@ -47,7 +47,7 @@ public abstract class Weapon implements BoardEvent {
         this.image = image;
     }
     @Override
-    public boolean interactWithCell(Hero player, Cell cell) {
+    public boolean interactWithCell(Hero player, Cell cell, boolean useDefenceItem) {
         //DISPLAY THE WEAPON YOU HAVE FOUND
         System.out.println(getImage() + "\nyou just found a " + getName());
         if (getClassType().equals(player.getClass().getSimpleName())) {

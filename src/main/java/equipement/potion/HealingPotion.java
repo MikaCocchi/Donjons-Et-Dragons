@@ -44,7 +44,7 @@ public abstract class HealingPotion implements BoardEvent {
     }
 
     @Override
-    public boolean interactWithCell(Hero player, Cell cell) {
+    public boolean interactWithCell(Hero player, Cell cell, boolean useDefenceItem) {
         //DISPLAY THE POTION YOU HAVE FOUND
         System.out.println(getImage() + "\nYou found a " + getName());
         player.setHeal(Math.min(player.getHeal() + getHealingAmount(), player.getMaxHeal()));

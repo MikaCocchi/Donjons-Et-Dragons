@@ -1,15 +1,22 @@
+import Cell.Cell;
 import character.heroes.Hero;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import equipement.defence.Defence;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.BinaryOperator;
 
 /**
  * this class contains all the functions and attributes we need to connect to a database
  */
 public class DataBase {
     private Connection connection;
+
     public void connectDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -17,11 +24,12 @@ public class DataBase {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DnD", "MikaCocchi", "nope you won't see my password");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DnD", "MikaCocchi", "nop still not able to see my password :p");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public List<Hero> getHeroInfos() {
         List<Hero> heroes = new ArrayList<>();
         Statement statement = null;
@@ -38,12 +46,15 @@ public class DataBase {
             while (result.next()) {
                 String name = result.getString("name");
                 String type = result.getString("type");
-                try{
-                    Class<?> classType = Class.forName("character.heroes."+type);
+                String defenceItem = result.getString("leftHand");
+                try {
+                    Class<?> classType = Class.forName("character.heroes." + type);
                     hero = (Hero) classType.getDeclaredConstructor().newInstance();
                     hero.setName(name);
                     hero.setStrength((result.getInt("strength")));
                     hero.setHeal(result.getInt("heal"));
+                    Class<?> classDefenceItem = Class.forName("equipement.defence." + defenceItem);
+                    hero.setLeftHand((Defence) classDefenceItem.getDeclaredConstructor().newInstance());
                     heroes.add(hero);
                 } catch (Exception e) {
                     System.out.println(e);
@@ -65,33 +76,97 @@ public class DataBase {
         }
         return heroes;
     }
+
     public void saveCreatedHero(Hero player) {
         connectDatabase();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Characters(name, type , heal , strength ) VALUES (?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Characters(name, type , heal , strength, leftHand, board) VALUES (?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, player.getName());
             preparedStatement.setString(2, player.getClass().getSimpleName());
             preparedStatement.setInt(3, player.getHeal());
             preparedStatement.setInt(4, player.getStrength());
+            preparedStatement.setString(5, player.getLeftHand().getClass().getSimpleName());
+            preparedStatement.setString(6, "default board value =)");
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public void saveHeroCurrentStats(Hero player) {
         connectDatabase();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Characters SET heal = ? , strength = ? WHERE name = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Characters SET heal = ? , strength = ? , leftHand = ? WHERE name = ?");
             preparedStatement.setInt(1, player.getHeal());
             preparedStatement.setInt(2, player.getStrength());
-            preparedStatement.setString(3, player.getName());
+            preparedStatement.setString(3, player.getLeftHand().getClass().getSimpleName());
+            preparedStatement.setString(4, player.getName());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void saveBoard(Hero player, Cell[] board) {
+        connectDatabase();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+
+        try {
+            String boardToJson = objectMapper.writeValueAsString(board);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Characters SET board = ? WHERE name = ?");
+            preparedStatement.setString(1, boardToJson);
+            preparedStatement.setString(2, player.getName());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException | JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Cell[] getSavedBoard(Hero player) {
+        Statement statement = null;
+        ResultSet result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        connectDatabase();
+        try {
+            statement = connection.createStatement();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT board FROM Characters WHERE name = ?;");
+            preparedStatement.setString(1, player.getName());
+
+            result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                try {
+                    System.out.println(result.getString("board"));
+                    Cell[] jsonToArray = objectMapper.readValue(result.getString("board"), Cell[].class);
+                    System.out.println("GENRE ÇA MARCHE " + Arrays.toString(jsonToArray));
+                    return jsonToArray;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+            }
+        } catch (SQLException e) {
+        } finally {
+            // Fermeture de la connexion
+            try {
+                if (result != null)
+                    result.close();
+                if (statement != null)
+                    statement.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException ignore) {
+            }
+        }
+        return null;
+    }
+
     public void deleteHero(String playerName) {
         connectDatabase();
         try {
@@ -103,6 +178,7 @@ public class DataBase {
             throw new RuntimeException(e);
         }
     }
+
     public Hero loadSavedCharacter() {
         Scanner keyboard = new Scanner(System.in);
 
@@ -117,6 +193,7 @@ public class DataBase {
         return allSavedCharacters.get(choice);
 
     }
+
     public List<String> getAllNames() {
         List<String> names = new ArrayList<>();
         Statement statement = null;
@@ -131,7 +208,7 @@ public class DataBase {
 
             while (result.next()) {
                 oneName = result.getString("name");
-                try{
+                try {
                     names.add(oneName);
                 } catch (Exception e) {
                     System.out.println(e);

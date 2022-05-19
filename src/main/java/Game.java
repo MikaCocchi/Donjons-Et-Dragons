@@ -124,6 +124,8 @@ public class Game {
     public static void startPlaying(Hero player, DataBase db) {
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
+        board.setBoard(db.getSavedBoard(player));
+        System.out.println("2nd system out test "+board);
         System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
         while (board.getPosition() < board.getBoard().length) {
             String keyboardInput = keyboard.nextLine();
@@ -134,6 +136,7 @@ public class Game {
                 case "exit":
                     System.out.println("Thanks for playing !");
                     db.saveHeroCurrentStats(player);
+                    db.saveBoard(player,board.getBoard());
                     System.exit(0);
                 case "st":
                     System.out.println(player);

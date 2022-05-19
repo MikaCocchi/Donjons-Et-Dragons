@@ -8,7 +8,7 @@ import interfaces.BoardEvent;
  */
 public class EmptyCell implements BoardEvent {
     @Override
-    public boolean interactWithCell(Hero player,Cell cell) {
+    public boolean interactWithCell(Hero player,Cell cell, boolean useDefenceItem) {
         System.out.println(" _____                _                    _ _ \n" +
                 "|  ___|              | |                  | | |\n" +
                 "| |__ _ __ ___  _ __ | |_ _   _    ___ ___| | |\n" +

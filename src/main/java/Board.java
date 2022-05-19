@@ -3,6 +3,8 @@ import character.enemies.Dragon;
 import character.enemies.Goblin;
 import character.enemies.Warlock;
 import character.heroes.Hero;
+import equipement.defence.Philter;
+import equipement.defence.Shield;
 import equipement.potion.BigHealingPotion;
 import equipement.potion.StandardHealingPotion;
 import equipement.weapon.*;
@@ -58,6 +60,10 @@ public class Board {
                 test.setRandomEvent(new StandardHealingPotion());
             } else if (i < 53) {
                 test.setRandomEvent(new BigHealingPotion());
+            }else if (i < 56) {
+                test.setRandomEvent(new Shield());
+            }else if (i < 59) {
+                test.setRandomEvent(new Philter());
             } else {
                 test.setRandomEvent(new EmptyCell());
             }
@@ -96,14 +102,19 @@ public class Board {
                         keyboardInput = keyboard.nextLine();
                     }
                     if (keyboardInput.equals("f") || keyboardInput.equals("F")) {
-                        roundFinished = playTheRound(board[getPosition()], player);
+                        System.out.println("Do you want to defend yourself using your " + player.getLeftHand().getClass().getSimpleName() + " and then fight back ?");
+                        keyboardInput = keyboard.nextLine();
+                        boolean useDefenceItem = keyboardInput.equals("y");
+                        //PLAY THE ROUND
+                        roundFinished = board[getPosition()].getRandomEvent().interactWithCell(player, board[getPosition()],useDefenceItem );
                     } else {
                         int DiceThrowToGoBack = (int) (Math.random() * 6) + 1;
                         setPosition(Math.max(getPosition() - DiceThrowToGoBack, 0));
                         System.out.println("You went back to the space : " + getPosition());
                     }
                 } else {
-                    roundFinished = playTheRound(board[getPosition()], player);
+                    //PLAY THE ROUND
+                    roundFinished = board[getPosition()].getRandomEvent().interactWithCell(player, board[getPosition()],false);
                 }
             }
 
@@ -123,10 +134,6 @@ public class Board {
                     "               _.' '._\n" +
                     "              `\"\"\"\"\"\"\"`");
         }
-    }
-
-    public boolean playTheRound(Cell cell, Hero player) {
-        return cell.getRandomEvent().interactWithCell(player,cell);
     }
 
     @Override

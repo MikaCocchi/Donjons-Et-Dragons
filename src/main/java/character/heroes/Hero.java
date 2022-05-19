@@ -1,6 +1,8 @@
 package character.heroes;
 
 import character.Character;
+import character.enemies.Enemy;
+import equipement.defence.Defence;
 
 /**
  * this class extends Character and defines all Heroes the user can choose
@@ -9,9 +11,33 @@ public abstract class Hero extends Character {
     private int maxHeal;
     private int maxStrength;
     private Object rightHand;
-    private Object leftHand;
+    private Defence leftHand;
 
     ///////////GETTER and SETTER
+
+///////////////NOT YET////////////////
+
+
+
+    /**
+     * this function changes the actual shield with a new one
+     *
+     * @param shield
+     */
+    public void changeShield(Defence shield) {
+        this.setLeftHand(shield);
+    }
+//////////////////////////////////////
+
+    /**
+     * this function display all the character stats in the terminal
+     */
+    @Override
+    public String toString() {
+        return getImage() + "\n" + getClass().getSimpleName() + " here are your statistics : \n-name : " + getName() + "\n-health : " + getHeal() + "\n-strength : " + getStrength() + "\n-leftHand : " + getLeftHand().getClass().getSimpleName();
+    }
+
+
     public Object getRightHand() {
         return rightHand;
     }
@@ -24,7 +50,7 @@ public abstract class Hero extends Character {
         return leftHand;
     }
 
-    public void setLeftHand(Object leftHand) {
+    public void setLeftHand(Defence leftHand) {
         this.leftHand = leftHand;
     }
 
@@ -42,33 +68,5 @@ public abstract class Hero extends Character {
 
     public void setMaxStrength(int maxStrength) {
         this.maxStrength = maxStrength;
-    }
-///////////////NOT YET////////////////
-
-    /**
-     * this function changes the actual weapon with a new one
-     *
-     * @param weapon a weapon with the class "warrior"
-     */
-    public void changeWeapon(Object weapon) {
-        this.setRightHand(weapon);
-    }
-
-    /**
-     * this function changes the actual shield with a new one
-     *
-     * @param shield
-     */
-    public void changeShield(Object shield) {
-        this.setLeftHand(shield);
-    }
-//////////////////////////////////////
-
-    /**
-     * this function display all the character stats in the terminal
-     */
-    @Override
-    public String toString() {
-        return getImage() + "\n" + getClass().getSimpleName() + " here are your statistics : \n-name : " + getName() + "\n-health : " + getHeal() + "\n-strength : " + getStrength();
     }
 }

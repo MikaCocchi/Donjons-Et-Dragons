@@ -1,5 +1,8 @@
 package character.heroes;
 
+import equipement.defence.EmptyLeftHand;
+import equipement.defence.Philter;
+
 /**
  * Wizard is a character which has a small amount of health but has a lot of damages
  */
@@ -30,6 +33,7 @@ public class Wizard extends Hero {
                 "   ||        ccc/       \n" +
                 "   ||                   ");
         setName(name);
+        setLeftHand(new Philter());
     }
     public Wizard() {
         setMaxHeal(6);
@@ -54,5 +58,6 @@ public class Wizard extends Hero {
                 "   ||         |_|   ccc/\n" +
                 "   ||        ccc/       \n" +
                 "   ||                   ");
+        setLeftHand(new EmptyLeftHand());
     }
 }
