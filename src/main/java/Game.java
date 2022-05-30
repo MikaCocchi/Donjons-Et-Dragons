@@ -1,6 +1,7 @@
 import character.heroes.Hero;
 import character.heroes.Warrior;
 import character.heroes.Wizard;
+import exeptions.BoardEndReachedExeption;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class Game {
 
     ///////////MAIN///////////
     public static void main(String[] args) {
+
         DataBase db = new DataBase();
         Scanner keyboard = new Scanner(System.in);
         Hero player;
@@ -24,9 +26,12 @@ public class Game {
             db.saveCreatedHero(player);
         }
         System.out.println("to start the game, enter 'start'");
-        if (keyboard.nextLine().equals("start")) {
-            startPlaying(player, db);
+        String keyboardStartInput = keyboard.nextLine();
+        while (!keyboardStartInput.equals("start")) {
+            System.out.println("to start the game, enter 'start'");
+            keyboardStartInput = keyboard.nextLine();
         }
+        startPlaying(player, db);
     }
 
     public static Hero createHero(DataBase db) {
@@ -122,21 +127,25 @@ public class Game {
      * function starts the process to play the game
      */
     public static void startPlaying(Hero player, DataBase db) {
+
         Scanner keyboard = new Scanner(System.in);
         Board board = new Board();
-        board.setBoard(db.getSavedBoard(player));
-        System.out.println("2nd system out test "+board);
+//        board.setBoard(db.getSavedBoard(player));
         System.out.println("To move forward enter 'c', to see your stats enter 'st' and if you want to stop playing enter 'exit'");
         while (board.getPosition() < board.getBoard().length) {
             String keyboardInput = keyboard.nextLine();
             switch (keyboardInput) {
                 case "c":
-                    board.moveForwardAndPlay(throwTheDice(), player, db);
+                    try {
+                        board.moveForwardAndPlay(throwTheDice(), player, db);
+                    } catch (BoardEndReachedExeption e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case "exit":
-                    System.out.println("Thanks for playing !");
                     db.saveHeroCurrentStats(player);
                     db.saveBoard(player,board.getBoard());
+                    System.out.println("Thanks for playing ! Your board and character has been saved !");
                     System.exit(0);
                 case "st":
                     System.out.println(player);

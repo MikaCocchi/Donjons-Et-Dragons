@@ -24,7 +24,7 @@ public class DataBase {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DnD", "MikaCocchi", "nop still not able to see my password :p");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DnD", "MikaCocchi", "Gnocchiofromage987111");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +114,6 @@ public class DataBase {
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-
         try {
             String boardToJson = objectMapper.writeValueAsString(board);
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Characters SET board = ? WHERE name = ?");
@@ -142,9 +141,7 @@ public class DataBase {
 
             while (result.next()) {
                 try {
-                    System.out.println(result.getString("board"));
                     Cell[] jsonToArray = objectMapper.readValue(result.getString("board"), Cell[].class);
-                    System.out.println("GENRE ÇA MARCHE " + Arrays.toString(jsonToArray));
                     return jsonToArray;
                 } catch (Exception e) {
                     System.out.println(e);
@@ -186,12 +183,19 @@ public class DataBase {
         for (int i = 0; i < allSavedCharacters.size(); i++) {
             System.out.println(i + "\n" + allSavedCharacters.get(i));
         }
-        int choice;
-        System.out.println("which character do you want ? (write a number) ");
-        choice = keyboard.nextInt();
-
+        int choice = -1;
+        boolean correctChoice = false;
+        while (!correctChoice) {
+            System.out.println("please Choose a correct number from 0 to " + (allSavedCharacters.size()-1));
+            try{
+                choice = Integer.parseInt(keyboard.next());
+                if (choice < allSavedCharacters.size()) {
+                    correctChoice = true;
+                }
+            }catch (NumberFormatException ex) {
+            }
+        }
         return allSavedCharacters.get(choice);
-
     }
 
     public List<String> getAllNames() {

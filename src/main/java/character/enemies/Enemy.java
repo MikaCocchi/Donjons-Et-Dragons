@@ -11,6 +11,8 @@ import interfaces.BoardEvent;
  * A super class which contains all the stats an enemy needs
  */
 public abstract class Enemy extends Character implements BoardEvent {
+
+
     @Override
     public boolean interactWithCell(Hero player, Cell cell, boolean useDefenceItem) {
         String defeatMessage = "You have been defeated !\n" +
@@ -68,5 +70,6 @@ public abstract class Enemy extends Character implements BoardEvent {
     public String toString() {
         return "\n" + getImage() + "\n" + getClass().getSimpleName() + "'s statistics : " + "\n-health : " + getHeal() + "\n-strength : " + getStrength();
     }
+
 }
 
